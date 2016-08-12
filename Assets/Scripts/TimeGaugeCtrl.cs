@@ -7,6 +7,8 @@ public class TimeGaugeCtrl : MonoBehaviour {
 	private Image timeGauge;
 	public float speed = 0.001f;
 
+	private int problemNum = 0;
+
 	// Use this for initialization
 	void Start () {
 		timeGauge = GetComponent<Image>();
@@ -14,8 +16,14 @@ public class TimeGaugeCtrl : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
-		timeGauge.fillAmount -= speed;
+		if(timeGauge.fillAmount == 0)
+		{    
+			GameObject expiredProblem = GameObject.Find("problem"+ problemNum);
+			timeGauge.fillAmount = 1;
+			problemNum++;
+			Destroy(expiredProblem);
+	    }else
+			timeGauge.fillAmount -= speed;
 	
 	}
 }
